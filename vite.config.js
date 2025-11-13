@@ -1,13 +1,12 @@
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  //base: "/", // Ensures correct relative paths
-  base: "/DigitalWallet_FE/",
-  //root: "./",
-  //publicDir: "public", // Ensures `index.html` is correctly located
+  base: "/.", // Ensures correct relative paths
+  //base: "/DigitalWallet_FE/",
+  root: "./",
+  publicDir: "public", // Ensures `index.html` is correctly located
 });
 
 
