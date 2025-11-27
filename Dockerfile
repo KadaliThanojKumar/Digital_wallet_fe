@@ -85,6 +85,22 @@ RUN git clone https://github.com/KadaliThanojKumar/Digital_wallet_fe.git .
 RUN npm install --legacy-peer-deps
 RUN npm run build
 
+# # Stage 2: Runtime with Tomcat
+# FROM tomcat:9-jdk17
+# RUN rm -rf /usr/local/tomcat/webapps/*
+
+# # Copy build output
+# COPY --from=build-stage /app/dist /usr/local/tomcat/webapps/ROOT
+
+# # Add SPA routing fix
+# RUN mkdir -p /usr/local/tomcat/webapps/ROOT/WEB-INF
+# #COPY web.xml /usr/local/tomcat/webapps/ROOT/WEB-INF/web.xml
+# COPY --from=build-stage /app/web.xml /usr/local/tomcat/webapps/ROOT/WEB-INF/web.xml
+
+
+# EXPOSE 8080
+# CMD ["catalina.sh", "run"]
+
 # Stage 2: Runtime with Tomcat
 FROM tomcat:9-jdk17
 RUN rm -rf /usr/local/tomcat/webapps/*
@@ -94,9 +110,7 @@ COPY --from=build-stage /app/dist /usr/local/tomcat/webapps/ROOT
 
 # Add SPA routing fix
 RUN mkdir -p /usr/local/tomcat/webapps/ROOT/WEB-INF
-#COPY web.xml /usr/local/tomcat/webapps/ROOT/WEB-INF/web.xml
 COPY --from=build-stage /app/web.xml /usr/local/tomcat/webapps/ROOT/WEB-INF/web.xml
-
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
