@@ -94,7 +94,9 @@ COPY --from=build-stage /app/dist /usr/local/tomcat/webapps/ROOT
 
 # Add SPA routing fix
 RUN mkdir -p /usr/local/tomcat/webapps/ROOT/WEB-INF
-COPY web.xml /usr/local/tomcat/webapps/ROOT/WEB-INF/web.xml
+#COPY web.xml /usr/local/tomcat/webapps/ROOT/WEB-INF/web.xml
+COPY --from=build-stage /app/web.xml /usr/local/tomcat/webapps/ROOT/WEB-INF/web.xml
+
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
